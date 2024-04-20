@@ -35,8 +35,6 @@ export default function ColorShower() {
             .catch(error => {
                 console.error('Error:', error);
             });
-
-            setActiveNote(note)
         }
         init()
     }, []);

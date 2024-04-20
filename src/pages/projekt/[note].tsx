@@ -126,13 +126,13 @@ export default function ColorShower() {
         <div className="w-screen h-screen flex">
             <div className="w-[82px] py-[10px] flex flex-col border-r-[#F5F5F4] border-r-[2px]">
                 <div className="flex flex-col gap-[16px]">
-                    <div onClick={() => handleButtonClick('home')} className="w-[82px] h-[64px] hover:bg-[#EAEAE8] flex justify-center items-center text-[24px] hover:cursor-pointer">
+                    <div className="w-[82px] h-[64px] hover:bg-[#EAEAE8] flex justify-center items-center text-[24px] hover:cursor-pointer">
                         <FontAwesomeIcon icon={faHome} />
                     </div>
-                    <div onClick={() => handleButtonClick('book')} className="w-[82px] h-[64px] hover:bg-[#EAEAE8] flex justify-center items-center bg-[#F1F1F0] text-[24px] hover:cursor-pointer">
+                    <div className="w-[82px] h-[64px] hover:bg-[#EAEAE8] flex justify-center items-center bg-[#F1F1F0] text-[24px] hover:cursor-pointer">
                         <FontAwesomeIcon icon={faBook} />
                     </div>
-                    <div onClick={() => handleButtonClick('gear')} className="w-[82px] h-[64px] hover:bg-[#EAEAE8] flex justify-center items-center text-[24px] hover:cursor-pointer">
+                    <div className="w-[82px] h-[64px] hover:bg-[#EAEAE8] flex justify-center items-center text-[24px] hover:cursor-pointer">
                         <FontAwesomeIcon icon={faGear} />
                     </div>
                 </div>
