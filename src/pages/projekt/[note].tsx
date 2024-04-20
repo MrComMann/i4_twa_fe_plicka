@@ -74,6 +74,43 @@ export default function ColorShower() {
     }
 
 
+    const [visibleNew, setVisibleNew] = useState(false);
+    const [newName, setNewName] = useState(false);
+
+    const newNameChange = (e) => {
+        setNewName(e.target.value)
+    }
+
+    const showCreate = () => {
+        setVisibleNew(true);
+    }
+
+    const hideCreate = () => {
+        setVisibleNew(false);
+    }
+
+    const handleCreate = () => {
+        fetch(`/api/notes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: newName })
+        })
+        .then(response => {
+            setVisibleNew(false);
+            return fetch('/api/notes');
+        })
+        .then(response => response.json())
+        .then(data => {
+            setNotes(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
     return (
         <div className="w-screen h-screen flex">
             <div className="w-[82px] py-[10px] flex flex-col border-r-[#F5F5F4] border-r-[2px]">
@@ -126,12 +163,24 @@ export default function ColorShower() {
                         </div>
                     ))}
 
-                    <div className="py-[6px] px-[16px] flex gap-[10px] text-[12px] hover:bg-[#EAEAE8] hover:cursor-pointer ">
+                    <div className="py-[6px] px-[16px] flex gap-[10px] text-[12px] hover:bg-[#EAEAE8] hover:cursor-pointer " onClick={showCreate}>
                         <div>
                             <FontAwesomeIcon icon={faPlus} />
                         </div>
                         <div>Nová poznámka</div>
                     </div>
+                    {visibleNew && (
+                        <div className="w-screen h-screen top-0 left-0 right-0 bottom-0 fixed bg-[#dedede83] flex justify-center items-center">
+                            <div className="bg-white p-12 gap-8 rounded-2xl flex flex-col">
+                                <h3 className="text-2xl">Vytvořit novou poznámku</h3>
+                                <input type="text" className="border border-black rounded-md w-48 mx-auto p-1" onChange={newNameChange} />
+                                <div className="flex justify-center gap-16">
+                                    <button className="bg-[#41F203] text-white p-2 px-3 rounded" onClick={handleCreate}>Vytvořit</button>
+                                    <button className="bg-[#F21103] text-white p-2 px-3 rounded" onClick={hideCreate}>Zrušit</button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             ) : (

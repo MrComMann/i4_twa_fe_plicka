@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 interface Note {
     id: number;
-    title: string;
+    name: string;
     content: string;
 }
 
@@ -17,10 +17,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(500).json({ error: 'Failed to fetch notes' });
         }
     } else if (req.method === 'POST') {
-        const { title } = req.body;
+        const { name } = req.body;
         try {
             const newNote = await prisma.TWA_final.create({
-                data: { title }
+                data: { name }
             });
             res.status(201).json(newNote);
         } catch (error) {
