@@ -16,13 +16,12 @@ export default function ColorShower() {
         else setIsOpen(true)
     }
 
-    const [notes, setNotes] = useState<null | string>(null);
+    const [notes, setNotes] = useState(null);
 
     const [activeNote, setActiveNote] = useState(null)
 
     useEffect(() => {
-        const init = () => {
-            fetch('/api/notes')
+        fetch('/api/notes')
             .then(response => {
                 if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -35,12 +34,24 @@ export default function ColorShower() {
             .catch(error => {
                 console.error('Error:', error);
             });
-
-            setActiveNote(note)
-        }
-        init()
     }, []);
 
+    const Print = () =>{      
+        let printContents = document.getElementById('printarea').innerHTML;
+        let originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents; 
+    }
+
+    const Copy = () => {
+        const el = document.createElement('input');
+        el.value = window.location.href;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+      }
 
     const [selectedNote, setSelectedNote] = useState(null);
 
@@ -193,11 +204,11 @@ export default function ColorShower() {
                     </div>
                     <div className="flex gap-[16px]">
                         <div className="text-[#19171199] hover:cursor-pointer hover:text-[#37352F]"><FontAwesomeIcon icon={faSave} /></div>
-                        <div className="text-[#19171199] hover:cursor-pointer hover:text-[#37352F]"><FontAwesomeIcon icon={faPrint} /></div>
-                        <div className="text-[#19171199] hover:cursor-pointer hover:text-[#37352F]"><FontAwesomeIcon icon={faLink} /></div>
+                        <div className="text-[#19171199] hover:cursor-pointer hover:text-[#37352F]" onClick={Print}><FontAwesomeIcon icon={faPrint} /></div>
+                        <div className="text-[#19171199] hover:cursor-pointer hover:text-[#37352F]" onClick={Copy}><FontAwesomeIcon icon={faLink} /></div>
                     </div>
                 </div>
-                <div className="w-[708px]">
+                <div className="w-[708px]" id="printarea">
                     <h1 className="text-2xl w-full text-center">Otevřete nebo vytvořte poznámku</h1>
                 </div>
             </div>

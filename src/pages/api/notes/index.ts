@@ -49,7 +49,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(500).json({ error: 'Failed to delete note' });
         }
     } else {
-        res.setHeader('Allow', ['POST', 'PUT', 'DELETE']);
+        res.setHeader('Allow', ['GET', 'POST', 'PUT', 'DELETE']);
         res.status(405).end(`Method ${req.method} Not Allowed`);
     }
 };
